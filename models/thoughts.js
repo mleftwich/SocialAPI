@@ -1,0 +1,51 @@
+const { Schema, model, Types } = require("mongoose");
+
+const reactionSchema = new Schema(
+  {
+    body: {
+      type: String,
+      required: true,
+      minLength: 5,
+      maxLength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+  },
+  {
+    timestamps: true
+  }
+);
+// Schema to create a thought model
+const thoughtSchema = new Schema(
+  {
+    text: {
+      type: String,
+      required: true,
+      minLength: 1,
+      maxLength: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    reactions: [reactionSchema],
+  },
+  {
+    id: false,
+    timestamps: true
+  },
+);
+
+const Thought = model("thought", thoughtSchema);
+
+module.exports = Thought;

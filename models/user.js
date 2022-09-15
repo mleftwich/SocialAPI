@@ -22,14 +22,14 @@ const userSchema = new Schema(
       },
       required: [true, "Email required"],
     },
-    thoughts: {
+    thoughts: [{
       type: Schema.Types.ObjectId,
       ref: Thought,
-    },
-    friends: {
+    }],
+    friends: [{
       type: Schema.Types.ObjectId,
       ref: 'user',
-    },
+    }],
   },
   {
     toJSON: {
@@ -39,9 +39,9 @@ const userSchema = new Schema(
   }
 );
 
-const friendCount = userSchema.virtual("friendCount").get(function(){
-  return userSchema.friends.length;
-})
+// const friendCount = userSchema.virtual("friendCount").get(function(){
+//   return userSchema.friends.length;
+// })
 
 const User = model("user", userSchema);
 

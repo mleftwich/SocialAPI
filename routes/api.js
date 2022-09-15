@@ -1,3 +1,4 @@
+const Thought = require('../models/thoughts');
 const User = require('../models/user');
 
 const router = require('express').Router();
@@ -12,6 +13,8 @@ router.get('/users', (req, res) => {
     })
 });
 
+
+// POST ROUTE TO CREATE USERS
 router.post("/users", (req, res) => {
     const user = new User({
           username: req.body.username,
@@ -22,7 +25,7 @@ router.post("/users", (req, res) => {
 
 // GET ROUTE FOR THOUGHTS
 router.get('/thoughts', (req, res) => {
-    User.find({})
+    Thought.find({})
      .populate("text")
      .populate("username")
      .populate("createdAt")
@@ -31,5 +34,20 @@ router.get('/thoughts', (req, res) => {
          res.json(users)
      })
  });
+
+
+ // POST ROUTE TO CREATE THOUGHTS
+ router.post('/thoughts', (req, res) => {
+    const thought = new Thought({
+        text: req.body.text,
+        username: req.body.username,
+        })
+        thought.save().then(res.json(thought))
+        User.findOne({username: req.body.username}).then(function(user){
+            user.thoughts.push(thought._id)
+            console.log(thought._id)
+            user.save()
+        })
+})
 
 module.exports = router;

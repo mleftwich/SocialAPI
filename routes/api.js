@@ -23,6 +23,17 @@ router.post("/users", (req, res) => {
           user.save().then(res.json(user))
 })
 
+//POST ROUTE TO ADD FRIEND FOR USER
+router.post('/users/:userId/friends/:friendId', (req, res) => {
+    const userId = req.params.userId
+    const friend = req.params.friendId
+    User.findById(userId).then(function(user) {
+        user.friends.push(friend)
+        user.save()
+        res.json('friend added:', user)
+    })
+})
+
 // GET ROUTE FOR THOUGHTS
 router.get('/thoughts', (req, res) => {
     Thought.find({})
@@ -45,7 +56,6 @@ router.get('/thoughts', (req, res) => {
         thought.save().then(res.json(thought))
         User.findOne({username: req.body.username}).then(function(user){
             user.thoughts.push(thought._id)
-            console.log(thought._id)
             user.save()
         })
 })

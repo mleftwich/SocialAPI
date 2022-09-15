@@ -13,7 +13,13 @@ router.get('/users', (req, res) => {
     })
 });
 
+// GET ROUTE FOR SINGLE USER
 
+router.get('/users/:id', (req, res) => {
+    User.findById(req.params.id).then(function (user) {
+        res.json(user)
+    })
+})
 // POST ROUTE TO CREATE USERS
 router.post("/users", (req, res) => {
     const user = new User({
@@ -30,7 +36,7 @@ router.post('/users/:userId/friends/:friendId', (req, res) => {
     User.findById(userId).then(function(user) {
         user.friends.push(friend)
         user.save()
-        res.json('friend added:', user)
+        res.json('Friend Added!')
     })
 })
 

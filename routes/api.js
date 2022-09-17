@@ -1,7 +1,9 @@
+const React = require("../models/thoughts");
 const Thought = require("../models/thoughts");
 const User = require("../models/user");
 
 const router = require("express").Router();
+
 
 // GET ROUTE FOR USERS
 router.get("/users", (req, res) => {
@@ -50,7 +52,7 @@ router.post("/users", (req, res) => {
     username: req.body.username,
     email: req.body.email,
   });
-  user.save().then(res.json(user));
+  user.save().then(res.json('User created!'));
 });
 
 //POST ROUTE TO ADD FRIEND FOR USER
@@ -85,16 +87,16 @@ router.get("/thoughts", (req, res) => {
     .populate("username")
     .populate("createdAt")
     .populate("reactions")
-    .then((users) => {
-      res.json(users);
+    .then((thoughts) => {
+      res.json(thoughts);
     });
 });
 
 
 // GET SINGLE THOUGHT
 router.get("/thoughts/:id", (req, res) => {
-    Thought.findById(req.params.id).then(function (user) {
-      res.json(user);
+    Thought.findById(req.params.id).then(function (thought) {
+      res.json(thought);
     });
   });
 
@@ -104,7 +106,7 @@ router.post("/thoughts", (req, res) => {
     text: req.body.text,
     username: req.body.username,
   });
-  thought.save().then(res.json(thought));
+  thought.save().then(res.json('Thought created!'));
   User.findOne({ username: req.body.username }).then(function (user) {
     user.thoughts.push(thought._id);
     user.save();
@@ -113,18 +115,30 @@ router.post("/thoughts", (req, res) => {
 
 
 // PUT ROUTE TO UPDATE THOUGHT
-router.put("/thoughts/update/:id", (req, res) => {
-    const thoughtId = req.params.id;
-    const newText = req.body.text;
-    const thought = User.findByIdAndUpdate(
-      {
-        _id: thoughtId,
-      },
-      { text: newText }
-    ).then(thought.save())
+router.put("/thoughts/update/:id", async (req, res) => {
+  const thoughtId = req.params.id;
+  const newText = req.body.text;
+  const thought = await Thought.findByIdAndUpdate(
+    {
+      _id: thoughtId,
+    },
+    { text: newText }
+  );
+  thought.save().then(res.json("Thought Updated!"));
+});
 
-    res.json("Thought updated!")
-    
+
+// POST ROUTE FOR REACTIONS
+router.post("/thoughts/:id/reactions", async (req, res) => {
+  const reaction = req.body.text
+  const user = req.body.username
+  Thought.findOne({ _id: req.params.id }).then(function (thought) {
+    thought.reactions.push({ "body": reaction, "username": user });
+    thought.save();
+    res.json("Reaction added!")
   });
+});
+
+// !! TODO DELETE REACTION !!
 
 module.exports = router;

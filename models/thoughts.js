@@ -18,6 +18,7 @@ const reactionSchema = new Schema(
     },
   },
   {
+    id: false,
     timestamps: true
   }
 );
@@ -38,7 +39,7 @@ const thoughtSchema = new Schema(
         type: Date,
         default: Date.now()
     },
-    reactions: [reactionSchema],
+   reactions: [reactionSchema]
   },
   {
     id: false,
@@ -46,6 +47,8 @@ const thoughtSchema = new Schema(
   },
 );
 
-const Thought = model("thought", thoughtSchema);
 
-module.exports = Thought;
+const Thought = model("thought", thoughtSchema);
+const React = model("react", reactionSchema)
+
+module.exports =  Thought, React;

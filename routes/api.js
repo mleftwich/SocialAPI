@@ -17,7 +17,10 @@ router.get("/users", (req, res) => {
 
 // GET ROUTE FOR SINGLE USER
 router.get("/users/:id", (req, res) => {
-  User.findById(req.params.id).then(function (user) {
+  User.findById(req.params.id)
+  .populate("thoughts")
+  .populate("friends")
+  .then(function (user) {
     console.log(user.friendCount)
     res.json(user);
   });

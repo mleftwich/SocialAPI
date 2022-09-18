@@ -140,5 +140,16 @@ router.post("/thoughts/:id/reactions", async (req, res) => {
 });
 
 // !! TODO DELETE REACTION !!
+router.delete("/thoughts/:thoughtId/reactions/:reactId", async (req, res) => {
+  const thoughtId = req.params.thoughtId;
+  const reactId = req.params.reactId
+  Thought.findById(thoughtId).then(function (thought) {
+    let arr = thought.reactions;
+    let reactPos = arr.indexOf(reactId);
+    arr.splice(reactPos, 1);
+    thought.save();
+    res.json("Reaction deleted!");
+  });
 
+})
 module.exports = router;

@@ -1,5 +1,5 @@
 const { Schema, model, Types } = require("mongoose");
-
+const moment = require('moment')
 const reactionSchema = new Schema(
   {
     body: {
@@ -12,14 +12,15 @@ const reactionSchema = new Schema(
       type: String,
       required: true,
     },
-    createdAt: {
+    ISO: {
         type: Date,
         default: Date.now()
     },
   },
   {
     id: false,
-    timestamps: true
+    timestamps: false,
+    strict: false
   }
 );
 // Schema to create a thought model
@@ -35,7 +36,7 @@ const thoughtSchema = new Schema(
       type: String,
       required: true,
     },
-    createdAt: {
+    ISO: {
         type: Date,
         default: Date.now()
     },
@@ -47,14 +48,24 @@ const thoughtSchema = new Schema(
       virtuals: true
     },
     id: false,
-    timestamps: true
+    strict: false,
+    timestamps: false
   },
 );
 
 const reactCount = thoughtSchema.virtual("reactCount").get(function(){
   return this.reactions.length;
 })
+const Created = thoughtSchema.virtual("Created").get(function() {
+  let time = this.ISO
+  return moment(time).format('DD/MM/YYYY')
 
+})
+const Reacted = thoughtSchema.virtual("Reacted").get(function() {
+  let time = this.ISO
+  return moment(time).format('DD/MM/YYYY')
+
+})
 const Thought = model("thought", thoughtSchema);
 const React = model("react", reactionSchema)
 

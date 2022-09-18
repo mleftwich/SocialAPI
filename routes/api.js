@@ -1,7 +1,7 @@
 const React = require("../models/thoughts");
 const Thought = require("../models/thoughts");
 const User = require("../models/user");
-
+const moment = require('moment')
 const router = require("express").Router();
 
 
@@ -41,7 +41,7 @@ router.put("/users/update/:id", async (req, res) => {
 router.delete("/users/delete/:id", async (req, res) => {
   const userEnt = await User.findOne({ _id: req.params.id });
   const userName = userEnt.username;
-  const thoughts = await Thought.findOneAndDelete({ username: userName });
+  const thoughts = await Thought.find({ username: userName }).remove()
   const delUser = await User.findOneAndDelete({ _id: req.params.id });
   res.json("User and associated thoughts removed!");
 });
@@ -85,11 +85,11 @@ router.get("/thoughts", (req, res) => {
   Thought.find({})
     .populate("text")
     .populate("username")
-    .populate("createdAt")
     .populate("reactions")
     .then((thoughts) => {
-      res.json(thoughts);
+   res.json(thoughts)
     });
+    
 });
 
 

@@ -18,6 +18,7 @@ router.get("/users", (req, res) => {
 // GET ROUTE FOR SINGLE USER
 router.get("/users/:id", (req, res) => {
   User.findById(req.params.id).then(function (user) {
+    console.log(user.friendCount)
     res.json(user);
   });
 });
@@ -43,7 +44,6 @@ router.delete("/users/delete/:id", async (req, res) => {
   const thoughts = await Thought.findOneAndDelete({ username: userName });
   const delUser = await User.findOneAndDelete({ _id: req.params.id });
   res.json("User and associated thoughts removed!");
-  console.log(userName);
 });
 
 // POST ROUTE TO CREATE USERS
@@ -126,6 +126,13 @@ router.put("/thoughts/update/:id", async (req, res) => {
   );
   thought.save().then(res.json("Thought Updated!"));
 });
+
+// ROUTE TO DELETE THOUGHT
+router.delete("/thoughts/delete/:id", (req, res) => {
+  const thought = Thought.findOneAndDelete({ '_id': req.params.id}).then(function(thought) {
+    res.json("Thought deleted!")
+  })
+})
 
 
 // POST ROUTE FOR REACTIONS

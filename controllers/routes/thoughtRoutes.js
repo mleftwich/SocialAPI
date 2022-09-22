@@ -1,3 +1,4 @@
+const User = require("../../models/user");
 const Thought = require("../../models/thoughts");
 const moment = require("moment");
 const router = require("express").Router();

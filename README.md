@@ -14,30 +14,36 @@
 ---
 
   ## Description
-  This is a backend server configured for use with a social network. All end points are functional and allow the options to create users and thoughts, add friends, and react to thoughts. Users and thoughts can be modified/updated, and you can view all users/thoughts or choose to view specific queries, with the ability to delete all reactions, friends, thoughts and users.
+  This is a backend server configured for use with a social network. All end points are functional and allow the options to create users and thoughts, add friends, and react to thoughts. Users and thoughts can be modified/updated, and you can view all users/thoughts or choose to view specific queries, with the ability to delete all reactions, friends, thoughts and users. 
+
+  Created using mongodb and node.js, utilizing the express package and mongoose - an npm that allows easier operation and access of mongoose databases to perform CRUD operations on the server.
+
+---
 
 
 ![screenshot](./assets/imgs/screenshot.png)
 
+---
+
 
   ## Installation
-   Clone the repository
+   Visit the repository at [my github](https://github.com/mleftwich/SocialAPI) and clone the repo to your local machine.
 
 
   ## Usage
-   Install npm and use program like insomnia/postman to handle requests
+   Install npm(npm install in terminal) and use program like Insomnia/Postman to handle requests/endpoints.
 
 
   ## Contributing
-   Reach out to the email below
+   If you'd like to contribute, reach out through the email listed below.
 
 
   ## Guidelines
-   Uses MongoDB
+  Uses MongoDB - must have an instance on local machine to operate.
 
 
   ## Tests
-   Plenty
+  Tested endpoints with Insomnia.
 
 
   ## License

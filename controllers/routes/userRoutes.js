@@ -36,6 +36,7 @@ router.get("/users/:id", (req, res) => {
 
 // PUT ROUTE UPDATE USER BY ID
 router.put("/users/update/:id", async (req, res) => {
+  try {
   const userId = req.params.id;
   const newName = req.body.username;
   const newEmail = req.body.email;
@@ -45,7 +46,14 @@ router.put("/users/update/:id", async (req, res) => {
     },
     { username: newName, email: newEmail }
   );
+  if (!user) {
+    res.json("User not found");
+  } else {
   user.save().then(res.json("Username Updated!"));
+  }
+  } catch (err) { 
+    res.json("There's been an error please check params and try again.");
+  }
 });
 
 // DELETE USER ROUTE

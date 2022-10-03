@@ -17,6 +17,8 @@
   This is a backend server configured for use with a social network. All end points are functional and allow the options to create users and thoughts, add friends, and react to thoughts. Users and thoughts can be modified/updated, and you can view all users/thoughts or choose to view specific queries, with the ability to delete all reactions, friends, thoughts and users. 
 
   Created using mongodb and node.js, utilizing the express package and mongoose - an npm that allows easier operation and access of mongoose databases to perform CRUD operations on the server.
+  
+  View a working demonstration [here](https://drive.google.com/file/d/1_ZbT_gglbIKOSImLODueKwMQUfEyZYFn/view)
 
 ---
 

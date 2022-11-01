@@ -4,6 +4,7 @@
   
   ## Table of Contents
   * [Description](#description)
+  * [Technologies](#technologies)
   * [Installation](#installation)
   * [Usage](#usage)
   * [Contributing](#contributing)
@@ -27,6 +28,12 @@
 
 ---
 
+
+  ## Technologies
+  * JavaScript
+  * node.js
+  * NoSQL
+  
 
   ## Installation
    Visit the repository at [my github](https://github.com/mleftwich/SocialAPI) and clone the repo to your local machine.
